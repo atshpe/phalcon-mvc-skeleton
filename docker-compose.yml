@@ -1,0 +1,26 @@
+version: '3.2'
+services:
+    nginx_2:
+        image: nginx:1.21.4
+        container_name: nginx_2
+        volumes:
+            - ./src:/var/www/html
+            - ./nginx/templates:/etc/nginx/templates
+        ports:
+            - 7000:7000
+    php_2:
+        image: php:7.4.26-fpm
+        container_name: php_2
+        build: .
+        volumes:
+            - ./src:/var/www/html
+        expose:
+            - 9000
+    mariadb_2:
+        image: mariadb:10.5
+        container_name: mariadb_2
+        environment:
+            MARIADB_ROOT_PASSWORD: 12345
+            MARIADB_DATABASE: phalcon
+        ports:
+            - 3310:3306
