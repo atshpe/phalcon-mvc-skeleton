@@ -5,7 +5,7 @@ services:
         container_name: nginx_2
         volumes:
             - ./src:/var/www/html
-            - ./nginx/templates:/etc/nginx/templates
+            - ./server/nginx/templates:/etc/nginx/templates
         ports:
             - 7000:7000
     php_2:
