@@ -12,7 +12,7 @@ class Constructor extends Router
     public function __construct(FactoryDefault $di)
     {
         parent::__construct(false);
-        
+
         $this->di = $di;
         $this->setDefault();
         $this->build();

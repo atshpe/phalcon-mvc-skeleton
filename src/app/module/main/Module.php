@@ -2,15 +2,16 @@
 
 namespace App\Module\Main;
 
-use Phalcon\Loader;
-use Phalcon\Mvc\View;
-use Phalcon\Di\DiInterface;
-use Phalcon\Mvc\Dispatcher;
-use Phalcon\Mvc\ModuleDefinitionInterface;
+use Phalcon\Loader,
+    Phalcon\Mvc\View,
+    Phalcon\Di\DiInterface,
+    Phalcon\Mvc\Dispatcher,
+    Phalcon\Mvc\ModuleDefinitionInterface;
 
 class Module implements ModuleDefinitionInterface
 {
-    public function registerAutoloaders(DiInterface $di = null) {
+    public function registerAutoloaders(DiInterface $di = null)
+    {
         $loader = new Loader();
 
         $loader->registerNamespaces([

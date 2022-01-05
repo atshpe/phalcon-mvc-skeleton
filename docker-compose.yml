@@ -16,6 +16,7 @@ services:
             - ./src:/var/www/html
         expose:
             - 9000
+        command: bash -c "chown www-data:www-data /var/www/html/cache -R && php-fpm"
     mariadb_2:
         image: mariadb:10.5
         container_name: mariadb_2

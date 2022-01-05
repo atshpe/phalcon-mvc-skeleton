@@ -1,6 +1,6 @@
 <?php
 
-return new \Phalcon\Config([
+return [
     'db' => [],
     'router' => [
         '/' => [
@@ -16,4 +16,4 @@ return new \Phalcon\Config([
             'action' => 'index',
         ],
     ],
-]);
+];

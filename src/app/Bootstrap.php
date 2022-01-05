@@ -2,17 +2,18 @@
 
 namespace App;
 
-use Phalcon\Di\FactoryDefault;
-use Phalcon\Mvc\Application;
-use App\Service\Router\Constructor as Router;
+use Phalcon\Di\FactoryDefault,
+    Phalcon\Mvc\Application,
+    Phalcon\Config,
+    App\Service\Session\Storage,
+    App\Service\Router\Constructor as RouterConstructor;
 
 class Bootstrap
 {
     protected
         $di,
         $app,
-        $applicationPath,
-        $serviceProviders = [];
+        $applicationPath;
 
     public function __construct($applicationPath)
     {
@@ -22,12 +23,12 @@ class Bootstrap
 
         $this->di = new FactoryDefault();
         $this->app = new Application($this->di);
-        
         $this->applicationPath = $applicationPath;
-        $this->registerServices();
+        
+        $this->registerServices(); 
         
         $this->app->registerModules(
-            require dirname(dirname(__FILE__)) . '/config/module.php'
+            require $this->applicationPath . '/config/module.php',
         );
     }
 
@@ -53,7 +54,8 @@ class Bootstrap
 
     protected function registerServices()
     {
-        $this->di['config'] = require dirname(dirname(__FILE__)) . '/config/main.php';
-        $this->di['router'] = new Router($this->di);
+        $this->di['config']     = new Config(require $this->applicationPath . '/config/main.php');
+        $this->di['router']     = new RouterConstructor($this->di);
+        $this->di['session']    = new Storage($this->applicationPath);
     }
 }

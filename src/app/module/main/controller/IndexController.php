@@ -19,10 +19,7 @@ class IndexController extends Controller
 
     public function testAction()
     {
-        echo '<pre>';var_dump(
-            // get_class_methods(
-                $this->dispatcher->getParam('param')
-            // )
-        );die;
+        $param = $this->dispatcher->getParam('param');
+        echo $param;die;
     }
 }
