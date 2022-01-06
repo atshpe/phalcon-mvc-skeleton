@@ -12,7 +12,7 @@ class Storage extends Manager
         parent::__construct();
 
         $adapter = new Stream(['savePath' => $dir . '/cache']);
-        $adapter->gc(1800);
+        $adapter->gc(10);
         
         $this->setAdapter($adapter);
         $this->start();

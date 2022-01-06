@@ -14,6 +14,7 @@ class IndexController extends Controller
     
     public function indexAction()
     {
+        echo $this->session->name;die;
         $this->tag->setTitle('Main');
     }
 

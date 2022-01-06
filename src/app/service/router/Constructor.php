@@ -14,24 +14,22 @@ class Constructor extends Router
         parent::__construct(false);
 
         $this->di = $di;
-        $this->setDefault();
         $this->build();
     }
 
     public function build()
     {
+        $this->setDefaults([
+            'module' => 'main',
+            'controller' => 'index',
+            'action' => 'notFound'
+        ]);
+
         $config = $this->di->get('config')->toArray();
         $config = $config['router'];
 
         foreach ($config as $route => $items) {
             $this->add($route, $items);
         }
-    }
-
-    private function setDefault()
-    {
-        $this->setDefaultModule('main');
-        $this->setDefaultController('index');
-        $this->setDefaultAction('notFound');
     }
 }

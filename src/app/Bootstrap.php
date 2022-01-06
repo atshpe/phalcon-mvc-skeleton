@@ -5,7 +5,10 @@ namespace App;
 use Phalcon\Di\FactoryDefault,
     Phalcon\Mvc\Application,
     Phalcon\Config,
+    Phalcon\Events\Event,
+    Phalcon\Events\Manager as EventsManager,
     App\Service\Session\Storage,
+    App\Service\Acl\Gate,
     App\Service\Router\Constructor as RouterConstructor;
 
 class Bootstrap
@@ -26,10 +29,11 @@ class Bootstrap
         $this->applicationPath = $applicationPath;
         
         $this->registerServices(); 
-        
         $this->app->registerModules(
             require $this->applicationPath . '/config/module.php',
         );
+
+        $this->attachEvents();
     }
 
     public function getDi()
@@ -54,8 +58,37 @@ class Bootstrap
 
     protected function registerServices()
     {
-        $this->di['config']     = new Config(require $this->applicationPath . '/config/main.php');
-        $this->di['router']     = new RouterConstructor($this->di);
-        $this->di['session']    = new Storage($this->applicationPath);
+        $di = $this->di;
+        $appPath = $this->applicationPath;
+        
+        $this->di->set('config', function () use ($appPath){
+            return new Config(require $appPath . '/config/main.php');
+        });
+        
+        $this->di->set('router', function () use ($di){
+            return new RouterConstructor($di);
+        });
+        
+        $this->di->set('session', function () use ($appPath) {
+            return new Storage($appPath);
+        });
+        
+        $this->di->set('acl', function () use ($di) {
+            return (new Gate($di))->run();
+        });
+    }
+
+    protected function attachEvents()
+    {
+        $eventsManager = new EventsManager();
+        
+        $eventsManager->attach(
+            'application:beforeHandleRequest',
+            function (Event $event) {
+                return $this->di->get('acl');
+            }
+        );
+
+        $this->app->setEventsManager($eventsManager);
     }
 }
