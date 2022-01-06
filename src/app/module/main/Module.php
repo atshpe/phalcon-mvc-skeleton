@@ -24,18 +24,21 @@ class Module implements ModuleDefinitionInterface
 
     public function registerServices(DiInterface $di)
     {
-        $di['dispatcher'] = function () {
+        $di->set('dispatcher', function () {
             $dispatcher = new Dispatcher();
             $dispatcher->setDefaultNamespace('App\Module\Main\Controller');
 
             return $dispatcher;
-        };
+        });
 
-        $di['view'] = function () {
+        $di->set('view', function () {
             $view = new View();
-            $view->setViewsDir('../app/module/main/view/');
+            
+            $view->setViewsDir(dirname(__FILE__) . '/view/');
+            $view->setLayoutsDir(dirname(__FILE__) . '/view/layouts/');
+            $view->setLayout('index');
 
             return $view;
-        };
+        });
     }
 }

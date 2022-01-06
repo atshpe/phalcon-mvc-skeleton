@@ -12,7 +12,7 @@ class Constructor extends Router
     public function __construct(FactoryDefault $di)
     {
         parent::__construct(false);
-
+        
         $this->di = $di;
         $this->build();
     }
@@ -28,8 +28,10 @@ class Constructor extends Router
         $config = $this->di->get('config')->toArray();
         $config = $config['router'];
 
-        foreach ($config as $route => $items) {
-            $this->add($route, $items);
+        foreach ($config as $pattern => $items) {
+            $this->add($pattern, $items);
         }
+
+        $this->handle($_SERVER['REQUEST_URI']);
     }
 }

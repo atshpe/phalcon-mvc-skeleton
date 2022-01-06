@@ -14,13 +14,13 @@ class IndexController extends Controller
     
     public function indexAction()
     {
-        echo $this->session->name;die;
+        $this->view->username = $this->session->username;
         $this->tag->setTitle('Main');
     }
 
     public function testAction()
     {
-        $param = $this->dispatcher->getParam('param');
-        echo $param;die;
+        $param = $this->dispatcher->getParams();
+        var_dump($param);die;
     }
 }

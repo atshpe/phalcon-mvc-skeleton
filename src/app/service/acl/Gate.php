@@ -2,39 +2,101 @@
 
 namespace App\Service\Acl;
 
-use Phalcon\Di\FactoryDefault;
-use Phalcon\Acl\Enum;
-use Phalcon\Acl\Adapter\Memory;
+use Phalcon\Di\FactoryDefault,
+    Phalcon\Acl\Enum,
+    Phalcon\Acl\Adapter\Memory;
 
-class Gate extends Memory
+class Gate
 {
     protected
         $config,
         $request,
+        $router,
         $session;
     
     public function __construct(FactoryDefault $di)
     {
-        $this->config = $di->get('config');
-        $this->request = $di->get('request');
-        $this->session = $di->get('session');
-        
+        $this->config   = $di->get('config')->toArray();
+        $this->request  = $di->get('request');
+        $this->router   = $di->get('router');
+        $this->session  = $di->get('session');
+        $this->acl      = new Memory();
+
         $this->run();
     }
 
-    public function run()
+    protected function run()
     {
         $role = $this->session->role ?? Role::GUEST;
-        $uri = $this->request->getURI();
-        
+
+        if (! $this->router->wasMatched()) {
+            return $this->router->notFound('404');
+        }
+
+        $controller = $this->getRoute()->getPaths()['controller'];
+        $action = $this->getRoute()->getPaths()['action'];
+
+        $pattern = $this->getRoute()->getPattern();
+
         if (
             $role == Role::GUEST
             &&
-            $uri != '/auth'
+            $pattern != '/auth'
         ) {
             header('Location: /auth');
+            exit;
         }
 
-        $this->setDefaultAction(Enum::DENY);
+        $this->build();
+
+        if (! $this->acl->isAllowed($role, $controller, $action)) {
+            echo '<center><h1>Access denied</h1></center>';
+            exit;
+        }
+    }
+
+    protected function getRoles()
+    {
+        $class = new \ReflectionClass(new Role);
+        return $class->getConstants();
+    }
+
+    protected function build()
+    {
+        $route = $this->getRoute();
+        $pattern = $route->getPattern();
+
+        $controller = $route->getPaths()['controller'];
+        $action = $route->getPaths()['action'];
+
+        $this->acl->setDefaultAction(Enum::DENY);
+
+        foreach ($this->getRoles() as $role) {
+            $this->acl->addRole($role);
+        }
+
+        $this->acl->addComponent(
+            $controller,
+            $action
+        );
+        
+        $config = $this->config['acl']['base'];
+
+        foreach ($config as $resource => $roles) {
+            if ($resource == $pattern) {
+                foreach ($roles as $role) {
+                    $this->acl->allow(
+                        $role,
+                        $controller,
+                        $action
+                    );
+                }
+            }
+        }
+    }
+
+    protected function getRoute()
+    {
+        return $this->router->getMatchedRoute();
     }
 }

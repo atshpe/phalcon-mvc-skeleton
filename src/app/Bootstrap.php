@@ -74,7 +74,7 @@ class Bootstrap
         });
         
         $this->di->set('acl', function () use ($di) {
-            return (new Gate($di))->run();
+            return new Gate($di);
         });
     }
 
