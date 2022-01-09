@@ -1,14 +1,32 @@
 <div class="container mt-5">
     <form class="col-md-6" method="post">
+
         <div class="form-group">
-            <input type="text" class="form-control" name="username" placeholder="Username" value="<?= $error['username'] ?? null ?>">
+            <?php
+                echo $form->render(
+                    'username',
+                    [
+                      'value' => $error->username ?? null
+                    ]
+                )
+            ?>
         </div>
+
         <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" value="<?= $error['password'] ?? null ?>">
+            <?php
+                echo $form->render(
+                    'password',
+                    [
+                      'value' => $error->password ?? null
+                    ]
+                )
+            ?>
         </div>
+
         <div class="text-danger text-center">
-            <?= $error['msg'] ?? null ?>
+            <?= $error->msg ?? null ?>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <?= $form->render('submit') ?>
     </form>
 </div>

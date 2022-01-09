@@ -17,6 +17,7 @@ class Module implements ModuleDefinitionInterface
         $loader->registerNamespaces([
             'App\Module\Main\Controller'    => dirname(dirname(__FILE__)) . '/main/controller/',
             'App\Module\Main\Model'         => dirname(dirname(__FILE__)) . '/main/model/',
+            'App\Module\Main\Form'          => dirname(dirname(__FILE__)) . '/main/form/',
         ]);
         
         $loader->register();

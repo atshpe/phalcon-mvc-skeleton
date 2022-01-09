@@ -4,6 +4,7 @@ namespace App\Module\Main\Controller;
 
 use Phalcon\Mvc\Controller;
 use App\Module\Main\Model\User;
+use App\Module\Main\Form\Login as LoginForm;
 
 class AuthController extends Controller
 {
@@ -14,6 +15,8 @@ class AuthController extends Controller
         if ($this->session->has('role')) {
             return $this->response->redirect('/');
         }
+
+        $form = new LoginForm();
 
         if ($this->request->isPost()) {
             $user = new User();
@@ -36,19 +39,20 @@ class AuthController extends Controller
                     
                     return $this->response->redirect('/');
                 } else {
-                    $this->view->error = [
+                    $this->view->error = (object) [
                         'msg' => 'Wrong password',
                         'username' => $this->request->get('username'),
                         'password' => $this->request->get('password'),
                     ];
                 }
             } else {
-                $this->view->error = [
+                $this->view->error = (object) [
                     'msg' => 'User not found',
                     'username' => $this->request->get('username'),
                 ];
             }
         }
+        $this->view->form = $form;
     }
 
     public function logoutAction()
