@@ -13,4 +13,8 @@ return [
         'controller' => 'auth',
         'action' => 'index',
     ],
+    '/logout' => [
+        'controller' => 'auth',
+        'action' => 'logout'
+    ],
 ];

@@ -10,6 +10,8 @@ RUN apt install -y \
 
 RUN pecl channel-update pecl.php.net
 RUN pecl install psr phalcon
-RUN docker-php-ext-enable psr phalcon
+
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-enable psr phalcon pdo_mysql
 
 EXPOSE 9000

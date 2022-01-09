@@ -6,6 +6,7 @@ use Phalcon\Di\FactoryDefault,
     Phalcon\Mvc\Application,
     Phalcon\Config,
     Phalcon\Events\Event,
+    Phalcon\Db\Adapter\Pdo\Mysql,
     Phalcon\Events\Manager as EventsManager,
     App\Service\Session\Storage,
     App\Service\Acl\Gate,
@@ -75,6 +76,13 @@ class Bootstrap
         
         $this->di->set('acl', function () use ($di) {
             return new Gate($di);
+        });
+
+        $this->di->set('db\phalcon\local', function () {
+            $config = $this->get('config')->toArray();
+            $config = $config['db']['phalcon'];
+
+            return new Mysql($config);
         });
     }
 
