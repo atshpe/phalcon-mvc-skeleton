@@ -1,25 +1,22 @@
 version: '3.2'
 services:
-    nginx_2:
+    web:
         image: nginx:1.21.4
-        container_name: nginx_2
         volumes:
             - ./src:/var/www/html
             - ./server/nginx/templates:/etc/nginx/templates
         ports:
             - 7000:7000
-    php_2:
+    php:
         image: php:7.4.26-fpm
-        container_name: php_2
         build: .
         volumes:
             - ./src:/var/www/html
         expose:
             - 9000
         command: bash -c "chown www-data:www-data /var/www/html/cache -R && php-fpm"
-    mariadb_2:
+    mysql:
         image: mariadb:10.5
-        container_name: mariadb_2
         environment:
             MARIADB_ROOT_PASSWORD: 12345
             MARIADB_DATABASE: phalcon

@@ -2,7 +2,7 @@
 
 return [
     'phalcon' => [
-        'host'     => 'mariadb_2',
+        'host'     => 'phalcon_1_mysql_1',
         'username' => 'root',
         'password' => '12345',
         'dbname'   => 'phalcon',

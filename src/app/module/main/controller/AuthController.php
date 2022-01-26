@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function indexAction()
     {
         $this->tag->setTitle('Authentication');
-        
+
         if ($this->session->has('role')) {
             return $this->response->redirect('/');
         }
@@ -20,7 +20,7 @@ class AuthController extends Controller
 
         if ($this->request->isPost()) {
             $user = new User();
-            
+
             $item = $user->findFirstByUsername(
                 $this->request->get('username')
             );

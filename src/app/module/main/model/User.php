@@ -2,10 +2,7 @@
 
 namespace App\Module\Main\Model;
 
-use Phalcon\Mvc\Model;
-use Phalcon\Crypt;
-
-class User extends Model
+class User extends \Phalcon\Mvc\Model
 {
     public
         $id,

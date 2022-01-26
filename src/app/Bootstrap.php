@@ -28,7 +28,7 @@ class Bootstrap
         $this->di = new FactoryDefault();
         $this->app = new Application($this->di);
         $this->applicationPath = $applicationPath;
-        
+
         $this->registerServices(); 
         $this->app->registerModules(
             require $this->applicationPath . '/config/module.php',
@@ -66,7 +66,7 @@ class Bootstrap
             return new Config(require $appPath . '/config/main.php');
         });
         
-        $this->di->set('router', function () use ($di){
+        $this->di->set('router', function () use ($di) {
             return new RouterConstructor($di);
         });
         
