@@ -8,8 +8,10 @@ class IndexController extends Controller
 {
     public function notFoundAction()
     {
-        $this->tag->setTitle('404');
-        echo '<center><h1>404</h1></center>';
+        $this->response->setStatusCode(404, 'Not found');
+        $this->response->setContent('The page doesn\'t exist');
+        $this->response->send();
+        exit;
     }
     
     public function indexAction()
@@ -18,9 +20,8 @@ class IndexController extends Controller
         $this->tag->setTitle('Main');
     }
 
-    public function testAction()
+    public function exampleAction()
     {
-        $param = $this->dispatcher->getParams();
-        var_dump($param);die;
+        $this->tag->setTitle('Example');
     }
 }

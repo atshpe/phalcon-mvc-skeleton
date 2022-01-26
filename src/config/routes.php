@@ -3,18 +3,18 @@
 return [
     '/' => [
         'controller' => 'index',
-        'action' => 'index',
+        'action' => 'index'
     ],
-    '/test/{param}' => [
-        'controller' => 'index',
-        'action' => 'test',
-    ],
-    '/auth' => [
+    '/login' => [
         'controller' => 'auth',
-        'action' => 'index',
+        'action' => 'index'
     ],
     '/logout' => [
         'controller' => 'auth',
         'action' => 'logout'
     ],
+    '/example' => [
+        'controller' => 'index',
+        'action' => 'example'
+    ]
 ];

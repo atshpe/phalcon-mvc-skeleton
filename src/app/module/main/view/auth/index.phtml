@@ -1,12 +1,14 @@
-<div class="container mt-5">
-    <form class="col-md-6" method="post">
+<div class="container col-md-6">
 
+    <h2 class="m-3">Please log in to proceed</h2>
+
+    <form method="post">
         <div class="form-group">
             <?php
                 echo $form->render(
                     'username',
                     [
-                      'value' => $error->username ?? null
+                    'value' => $error->username ?? null
                     ]
                 )
             ?>
@@ -17,7 +19,7 @@
                 echo $form->render(
                     'password',
                     [
-                      'value' => $error->password ?? null
+                    'value' => $error->password ?? null
                     ]
                 )
             ?>

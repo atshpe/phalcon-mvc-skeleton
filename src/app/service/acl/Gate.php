@@ -41,15 +41,17 @@ class Gate
         if (
             $role == Role::GUEST
             &&
-            $pattern != '/auth'
+            $pattern != '/login'
         ) {
-            header('Location: /auth');
+            header('Location: /login');
             exit;
         }
 
         $this->build();
 
         if (! $this->acl->isAllowed($role, $controller, $action)) {
+            // implement logic for access denied here
+
             echo '<center><h1>Access denied</h1></center>';
             exit;
         }

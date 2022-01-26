@@ -52,12 +52,13 @@ class AuthController extends Controller
                 ];
             }
         }
+        $this->view->setLayout('auth');
         $this->view->form = $form;
     }
 
     public function logoutAction()
     {
         $this->session->destroy();
-        return $this->response->redirect('/auth');
+        return $this->response->redirect('/login');
     }
 }
