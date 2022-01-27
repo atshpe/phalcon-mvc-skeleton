@@ -1,9 +1,14 @@
 # phalcon-mvc-skeleton
 Simple dockerized php MVC application with session and ACL.
 
-# to run the project
+# To run the project
 
-1. cd server/
-2. docker-compose up -d
-3. cd mysql_dump
-4. bash insert_dump.sh
+cd server/
+docker-compose up
+
+# To insert dump into database
+
+cd mysql_dump/
+bash insert_dump.sh
+
+Now go to localhost:7000
