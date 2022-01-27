@@ -1,5 +1,5 @@
 # phalcon-mvc-skeleton
-Simple php MVC application with session and ACL.
+Simple dockerized php MVC application with session and ACL.
 
 # to run the project
 
