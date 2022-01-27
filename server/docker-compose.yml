@@ -3,15 +3,15 @@ services:
     web:
         image: nginx:1.21.4
         volumes:
-            - ./src:/var/www/html
-            - ./server/nginx/templates:/etc/nginx/templates
+            - ../src:/var/www/html
+            - ./nginx/templates:/etc/nginx/templates
         ports:
             - 7000:7000
     php:
         image: php:7.4.26-fpm
         build: .
         volumes:
-            - ./src:/var/www/html
+            - ../src:/var/www/html
         expose:
             - 9000
         command: bash -c "chown www-data:www-data /var/www/html/cache -R && php-fpm"
@@ -19,6 +19,6 @@ services:
         image: mariadb:10.5
         environment:
             MARIADB_ROOT_PASSWORD: 12345
-            MARIADB_DATABASE: phalcon
+            MARIADB_DATABASE: test_db
         ports:
             - 3310:3306

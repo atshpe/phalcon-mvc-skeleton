@@ -2,10 +2,10 @@
 
 return [
     'phalcon' => [
-        'host'     => 'phalcon_1_mysql_1',
+        'host'     => 'server_mysql_1',
         'username' => 'root',
         'password' => '12345',
-        'dbname'   => 'phalcon',
+        'dbname'   => 'test_db',
         'port'     => '3306',
     ],
 ];
