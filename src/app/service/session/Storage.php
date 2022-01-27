@@ -17,4 +17,9 @@ class Storage extends Manager
         $this->setAdapter($adapter);
         $this->start();
     }
+
+    public function getIdentity()
+    {
+        return (object) $_SESSION;
+    }
 }

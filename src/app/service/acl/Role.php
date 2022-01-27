@@ -6,5 +6,5 @@ class Role
 {
     const GUEST = 'Guest';
     const USER = 'User';
-    const TEST = 'Test';
+    const ADMIN = 'Admin';
 }

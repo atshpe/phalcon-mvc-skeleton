@@ -33,7 +33,7 @@ class AuthController extends Controller
                 if ($user->isValidPassword(
                     $this->request->get('password')
                 )) {
-                    $this->session->id = $item['id'];
+                    $this->session->user_id = $item['id'];
                     $this->session->username = $item['username'];
                     $this->session->role = $item['role'];
                     

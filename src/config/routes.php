@@ -16,5 +16,9 @@ return [
     '/example' => [
         'controller' => 'index',
         'action' => 'example'
-    ]
+    ],
+    '/admin' => [
+        'controller' => 'admin',
+        'action' => 'index'
+    ],
 ];

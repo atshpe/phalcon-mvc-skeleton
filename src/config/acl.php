@@ -9,12 +9,18 @@ return [
         ],
         '/' => [
             Role::USER,
+            Role::ADMIN,
         ],
         '/logout' => [
             Role::USER,
+            Role::ADMIN,
         ],
         '/example' => [
             Role::USER,
-        ]
+            Role::ADMIN,
+        ],
+        '/admin' => [
+            Role::ADMIN,
+        ],
     ],
 ];
