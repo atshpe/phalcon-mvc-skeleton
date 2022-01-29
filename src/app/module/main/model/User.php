@@ -13,7 +13,7 @@ class User extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSource('users');
-        $this->setConnectionService('db\phalcon\local');
+        $this->setConnectionService('db\test\local');
     }
 
     public function crypt()

@@ -78,9 +78,9 @@ class Bootstrap
             return new Gate($di);
         });
 
-        $this->di->set('db\phalcon\local', function () {
+        $this->di->set('db\test\local', function () {
             $config = $this->get('config')->toArray();
-            $config = $config['db']['phalcon'];
+            $config = $config['db']['test_db'];
 
             return new Mysql($config);
         });
